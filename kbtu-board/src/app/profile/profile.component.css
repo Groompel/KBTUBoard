@@ -1,0 +1,95 @@
+@import "../../styles.css";
+
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 10;
+  flex-shrink: 10;
+  width: 95%;
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 10px;
+  padding: 30px;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+
+#profile-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  margin: 2px;
+  font-weight: normal;
+}
+
+#posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 80px auto;
+  width: 80%;
+}
+
+.post, #posts h1 {
+  width: 50%;
+  margin: auto;
+}
+
+#posts h1 {
+  text-align: center;
+}
+
+.post {
+  width: 70%;
+  border: 3px solid var(--color-light-gray);
+  border-radius: 5px;
+  margin: 10px auto;
+  padding: 5px;
+}
+
+.post * {
+  margin: 5px;
+  padding: 5px;
+}
+
+.post-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 5;
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  transition: 0.3s;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: var(--color-accent);
+  color: var(--color-black);
+}
+
+#profile-info button {
+  font-size: 18px;
+  padding: 3px;
+}

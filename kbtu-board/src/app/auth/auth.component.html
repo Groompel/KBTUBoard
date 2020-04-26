@@ -1,0 +1,235 @@
+<div class="page-container">
+  <div class="auth-container-outer">
+    <div class="auth-container-inner">
+      <div class="tabs">
+        <div class="tab active-tab login-tab" (click)="changeTab('login', 'Вход')">
+          <div class="tab-name">Вход</div>
+          <span class="line"></span>
+        </div>
+        <div class="tab register-tab" (click)="changeTab('register', 'Зарегистрироваться')">
+          <div class="tab-name">Регистрация</div>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="form-container">
+        <form (ngSubmit)="submitForm()" [formGroup]="user" class="auth-form">
+
+          <div class="error-container" [style.display]="authResponse.showErrorResponse ? 'block' : 'none'">
+            <div class="error-title">Ошибка!</div>
+            <div class="error-description">
+              {{ authResponse.errorMessage }}
+            </div>
+          </div>
+
+          <div class="input-form register">
+            <input autocomplete="off" formControlName="name" type="text" (input)="addValidators('name')">
+            <label for="name">
+              <span>Ваше имя</span>
+            </label>
+            <div class="error">{{ user.get("name").invalid ? user.get("name").errors.forbidden.errorMessage : ""}}</div>
+            <div class="margin-creator"></div>
+          </div>
+
+          <div class="input-form register login">
+            <input autocomplete="off" class="login" formControlName="username" type="text"
+              (input)="addValidators('username')">
+            <label for="username">
+              <span>Имя пользователя</span>
+            </label>
+            <div class="error">
+              {{ user.get("username").invalid ? user.get("username").errors.forbidden.errorMessage : ""}}</div>
+
+          </div>
+
+          <div class="input-form register login">
+            <input autocomplete="off" class="login" formControlName="password" type="password"
+              (input)="addValidators('password')">
+            <label for="password">
+              <span>Пароль</span>
+            </label>
+            <div class="error">
+              {{ user.get("password").invalid ? user.get("password").errors.forbidden.errorMessage : ""}}</div>
+
+          </div>
+
+          <div class="input-form register">
+            <input autocomplete="off" formControlName="passwordRepeat" type="password">
+            <label for="password-repeat">
+              <span>Повторите пароль</span>
+            </label>
+            <div class="error">
+              {{ user.get("passwordRepeat").invalid ? user.get("passwordRepeat").errors.passwordRepeatDoesNotMatch.errorMessage : ""}}
+            </div>
+          </div>
+
+          <div class="telegram-verification register" *ngIf="codeResponse.code !== '' ">
+            <div class="text">
+              <h4>Подтверждение через Telegram.</h4>
+              <div>
+                Для подтверждения аккаунта требуется верификация через
+                мессенджер Telegram.
+                Если у Вас его нет, то можете
+                <a href="https://web.telegram.org/#/login" target="_blank">cоздать аккаунт
+                  здесь</a> или скачать приложение для
+                <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger"
+                  target="_blank">Android</a>
+                или
+                <a href="https://apps.apple.com/ru/app/telegram-messenger/id686449807" target="_blank">IOS</a>.
+                <br>
+                Для подтверждения перейдите по <a class="bot-link" [href]="telegramBotLink" target="_blank">ссылке</a>
+                на наш Telegram бот и отправьте ему данный код:
+
+                <div class="code-container">
+                  <div class="code" (click)="copyCodeToClipboard()">
+                    <div class="copied">
+                      <div class="triangle-pin">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                          viewBox="0 0 80 80">
+                          <defs>
+                            <path d="M0 40 L40 0 L80 40 Z"></path>
+                          </defs>
+                          <g>
+                            <g>
+                              <g>
+                                <use xlink:href="#asm73wOZA"></use>
+                                <g>
+                                  <use xlink:href="#asm73wOZA"></use>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      Скопировано
+                    </div>
+                    <span>{{ codeResponse.code }}</span>
+                  </div>
+                  <div class="hint">(намжите, чтобы скопировать)</div>
+                </div>
+              </div>
+              <div class="code-control">
+                <div class="code-timer" ng-app ng-controller="codeTimer">
+                  <span>
+                    {{ telegramId.hasError("codeTimeExpired") ? telegramId.errors.codeTimeExpired.errorMessage : codeTimerMessage }}
+                  </span>
+                </div>
+              </div>
+              <ol class="actions">
+                <li>Отправьте <a [href]="telegramBotLink" target="_blank">боту</a> команду <span
+                    class="command">/start</span> или нажмите на кнопку "Старт" в нижней
+                  части окна.</li>
+                <li>Отправьте команду <span class="command">/validate <span
+                      class="code">{{ codeResponse.code }}</span></span>.</li>
+                <li>Нажмите на кнопку "Проверить".</li>
+              </ol>
+            </div>
+            <button class="check-btn" type="button" (click)="checkTelegramCode()">
+              <!-- SVG tik icon begin -->
+              <svg [style.display]="telegramResponse.valid ? 'block' : 'none'" class="tik-icon" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <g>
+                  <g>
+                    <path d="M383.841,171.838c-7.881-8.31-21.02-8.676-29.343-0.775L221.987,296.732l-63.204-64.893
+			c-8.005-8.213-21.13-8.393-29.35-0.387c-8.213,7.998-8.386,21.137-0.388,29.35l77.492,79.561
+			c4.061,4.172,9.458,6.275,14.869,6.275c5.134,0,10.268-1.896,14.288-5.694l147.373-139.762
+			C391.383,193.294,391.735,180.155,383.841,171.838z" />
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <path d="M256,0C114.84,0,0,114.84,0,256s114.84,256,256,256s256-114.84,256-256S397.16,0,256,0z M256,470.487
+			c-118.265,0-214.487-96.214-214.487-214.487c0-118.265,96.221-214.487,214.487-214.487c118.272,0,214.487,96.221,214.487,214.487
+			C470.487,374.272,374.272,470.487,256,470.487z" />
+                  </g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+              </svg>
+              <!-- SVG tik icon end -->
+
+              <!-- SVG loading icon begin -->
+              <!-- [style.display]="isLoading.telegram ? 'block' : 'none'"  -->
+              <svg class="loading-icon" version="1.1" [style.display]="isLoading.telegram ? 'block' : 'none'"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                <path
+                  d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                  <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50"
+                    to="360 50 50" repeatCount="indefinite" />
+                </path>
+              </svg>
+
+
+              <!-- SVG loading icon end -->
+
+              <!-- SVG error icon begin -->
+              <svg
+                [style.display]="!telegramResponse.valid && telegramResponse.valid  && !isLoading.telegram ? 'block' : 'none'"
+                viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m256 512c-141.160156 0-256-114.839844-256-256s114.839844-256 256-256 256 114.839844 256 256-114.839844 256-256 256zm0-475.429688c-120.992188 0-219.429688 98.4375-219.429688 219.429688s98.4375 219.429688 219.429688 219.429688 219.429688-98.4375 219.429688-219.429688-98.4375-219.429688-219.429688-219.429688zm0 0" />
+                <path
+                  d="m347.429688 365.714844c-4.679688 0-9.359376-1.785156-12.929688-5.359375l-182.855469-182.855469c-7.144531-7.144531-7.144531-18.714844 0-25.855469 7.140625-7.140625 18.714844-7.144531 25.855469 0l182.855469 182.855469c7.144531 7.144531 7.144531 18.714844 0 25.855469-3.570313 3.574219-8.246094 5.359375-12.925781 5.359375zm0 0" />
+                <path
+                  d="m164.570312 365.714844c-4.679687 0-9.355468-1.785156-12.925781-5.359375-7.144531-7.140625-7.144531-18.714844 0-25.855469l182.855469-182.855469c7.144531-7.144531 18.714844-7.144531 25.855469 0 7.140625 7.140625 7.144531 18.714844 0 25.855469l-182.855469 182.855469c-3.570312 3.574219-8.25 5.359375-12.929688 5.359375zm0 0" />
+              </svg>
+              <!-- SVG error icon end -->
+
+
+
+              Проверить
+            </button>
+
+            <div class="response-info"
+              [style.display]="isLoading.telegram || telegramResponse.showResponse ? 'block' : 'none'"
+              [style.color]="telegramResponse.showResponse  ? telegramResponse.valid || isLoading.telegram ? 'var(--color-medium-gray' : 'var(--color-error)' : 'var(--color-medium-gray)'">
+              {{ telegramResponse.message }}
+
+            </div>
+          </div>
+
+          <button class="submit-btn" type="submit">
+            <svg class="loading-icon" version="1.1" [style.display]="isLoading.form ? 'block' : 'none'"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"
+              xml:space="preserve">
+              <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50"
+                  to="360 50 50" repeatCount="indefinite" />
+              </path>
+            </svg>
+            {{ currentTab.buttonName }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

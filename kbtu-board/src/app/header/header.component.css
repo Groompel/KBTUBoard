@@ -1,0 +1,209 @@
+@import "../../styles.css";
+
+.nav-container {
+  background-color: var(--color-primary);
+  width: 100%;
+}
+
+nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.nav-logo {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo br {
+  display: none;
+}
+
+.nav-items {
+  list-style: none;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.btn-container {
+  border: 2px solid var(--color-accent);
+  border-radius: var(--border-btn-radius);
+  height: 37px;
+  width: 300px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: 40px;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+}
+
+.btn-container .btn-name {
+  transition: all 0.2s ease-in;
+  color: var(--color-accent);
+}
+
+.btn-container:hover {
+  background-color: var(--color-accent);
+}
+.btn-container:hover .btn-name {
+  color: #1f1f1f;
+}
+.btn-container:active {
+  transform: translateY(2px);
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+.profile-container {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.profile-container svg {
+  fill: #fff;
+  margin-right: 5px;
+  width: 30px;
+}
+
+.profile-container .username {
+  font-size: 18px;
+  font-weight: 600;
+  pointer-events: none;
+  color: #fff;
+}
+
+.profile-window {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  top: 80px;
+  min-width: 200px;
+  border-radius: 7.5px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.24);
+  color: var(--color-black);
+  animation: fade-from-left 0.2s ease-in;
+}
+
+.profile-window-show {
+  display: block;
+}
+
+.profile-window .window-triangle svg{
+  fill: #fff;
+  width: 25px;
+  top: -12px;
+  position: absolute;
+  right: 55px;
+  margin-right: -12.5px;
+}
+
+.profile-window .options {
+  list-style-type: none;
+}
+
+.option {
+  display: flex;
+  padding: 4px 6px;
+  align-items: center;
+  height: 50px;
+}
+
+.option:first-child {
+  border-top-left-radius: 7.5px;
+  border-top-right-radius: 7.5px;
+}
+
+.option:last-child {
+  border-bottom-left-radius: 7.5px;
+  border-bottom-right-radius: 7.5px;
+}
+
+.option:not(:last-child) {
+  border-bottom: 1px solid #CBCBCB;
+}
+
+.option:hover {
+  background-color: rgb(243, 243, 243);
+
+}
+
+.option-icon {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.option svg{
+  fill: var(--color-black);
+  width: 26px;
+  margin-right: 8px;
+}
+.option .option-name {
+  font-size: 18px;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+
+@media screen and (max-width: 800px) {
+  .nav-logo {
+    font-size: 30px;
+    line-height: 25px;
+  }
+
+  .nav-logo br {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 520px) {
+
+
+  .profile-container .profile-icon {
+    width: 40px;
+  }
+
+  .profile-window {
+    right: 5px;
+    min-width: 230px;
+  }
+
+  .profile-window .window-triangle svg {
+    right: 20px;
+  }
+
+  .option {
+    padding-left: 10px
+  }
+
+  .option-icon svg {
+    margin: 0px 10px 0 0;
+  }
+
+  .option .option-name {
+    font-size: 18px;
+  }
+}

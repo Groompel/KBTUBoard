@@ -1,0 +1,30 @@
+<div id="profile">
+  <div class="container">
+    <img src="assets/img/avatar.webp" alt="Avatar">
+    <div id="profile-info">
+      <h3><b>Имя:</b> {{user.name}}</h3>
+      <h3><b>Логин:</b> {{user.username}}</h3>
+      <h3><b>Telegram:</b> @{{user.telegram_username}}</h3>
+      <blockquote *ngIf="user.info">
+        <h3 *ngIf="user.info.gender"><b>Пол:</b> {{user.getGender()}}</h3>
+        <h3 *ngIf="user.info.faculty"><b>Факультет: </b>{{user.getFaculty()}}</h3>
+        <h3 *ngIf="user.info.rating"><b>Рейтинг преподавателя:</b> {{user.info.rating}}</h3>
+      </blockquote>
+      <button routerLink="/profile/edit">Редактировать профиль</button>
+    </div>
+  </div>
+
+  <div *ngIf="posts.length > 0" id="posts">
+    <h1>Ваши объявления</h1>
+    <div class="post" *ngFor="let p of posts">
+      <h2>{{p.header}}</h2>
+      <p>
+        {{p.description}}
+      </p>
+      <div class="post-buttons">
+        <button routerLink="/posts/{{p.id}}/edit">Редактировать</button>
+        <button (click)="postsService.removePost(p)">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

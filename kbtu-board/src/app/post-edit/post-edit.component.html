@@ -1,0 +1,13 @@
+<div id="post-edit">
+  <div class="post-form">
+    <input [(ngModel)]="post.title" placeholder="Заголовок" type="text">
+    <textarea [(ngModel)]="post.description" id="description" placeholder="Описание" rows="10"></textarea>
+    <button (click)="savePost()">Сохранить</button>
+  </div>
+  <div class="post">
+    <h2>{{post.title}}</h2>
+    <p>
+      {{post.description}}
+    </p>
+  </div>
+</div>

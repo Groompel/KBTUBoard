@@ -1,0 +1,137 @@
+<div class="parent">
+
+  <div class="child1">
+    <!-- <div>
+      <h1>
+        KBTUBoard
+      </h1>
+    </div> -->
+    <div>
+      <p class="Title">
+        KBTUBoard — студенческий проект, где каждый день публикуются актуальные объявления
+      </p>
+    </div>
+    <div>
+      <p class="MainDes">
+        Вы можете попросить об услуге: принести кофе, распечатать документ в библиотеке, одолжить бумагу или ручку.
+        Также вы сможете опубликовать на этом сайте объявление о пропавшей или найденной вещи.
+        А если вам вдруг нужна помощь по учебе - сайт предоставляет возможность найти актуальные решения этой проблемы.
+
+
+      </p>
+    </div>
+    <div>
+      <p class="Payment">
+        Вы можете установить плату в виде денежного вознаграждения или ответной услуги.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="child2">
+    <figure class="image1">
+      <img src="https://dwightlongenecker.com/wp-content/uploads/2018/04/help.jpg" class="image1" alt="Image1">
+    </figure>
+  </div>
+
+
+</div>
+
+<div class="containerS">
+  <div>
+    <h1>
+      <i> Наша миссия</i>
+    </h1>
+    <h2>Мы помогаем студентам КБТУ!</h2>
+  </div>
+
+</div>
+
+
+<div class="gallery">
+  <figure class="gallery__item gallery__item--1">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 3, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/34/d7/5d/34d75d1d7f2657150d6a9f5ff08ab5f6.jpg" class="gallery__img"
+        alt="Image 1">
+    </a>
+  </figure>
+  <figure class="gallery__item gallery__item--2">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 2, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/08/38/f5/0838f5ad1c2fba2044342f848b288ab4.jpg" class="gallery__img"
+        alt="Image 2">
+    </a>
+  </figure>
+  <figure class="gallery__item gallery__item--3">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 1, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/52/9a/f1/529af132926f4cb5a44b9610adbcdcc7.jpg" class="gallery__img"
+        alt="Image 3">
+    </a>
+  </figure>
+  <figure class="gallery__item gallery__item--4">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 2, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/c0/27/65/c0276508a9f3b37402f559131a28ba59.jpg" class="gallery__img"
+        alt="Image 4">
+    </a>
+  </figure>
+  <figure class="gallery__item gallery__item--5">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 1, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/a9/39/b9/a939b99a8e2d09956e36e051a7c80baf.jpg" class="gallery__img"
+        alt="Image 5">
+    </a>
+  </figure>
+  <figure class="gallery__item gallery__item--6">
+    <a [routerLink]="'/search'" [queryParams]="{query: '', category: 3, subcategory: 1}" class="all-ads-btn">
+      <img src="https://i.pinimg.com/564x/82/ef/e4/82efe4c4f39c54d6ee3ca14d93335c61.jpg" class="gallery__img"
+        alt="Image 6">
+    </a>
+  </figure>
+</div>
+
+<div class="containerB">
+  <div class="child1_2">
+    <img src="https://uaprom-static.c2.prom.st/image/about_us/graph_kz_1-hc7723f1239ecc4459453b5d539aa7db14.svg"
+      alt="Как выросла аудитория за 3 года">
+  </div>
+  <div class="child2_2">
+    <h2>
+      Как выросла наша аудитория за 3 года
+    </h2>
+  </div>
+</div>
+
+
+
+<div class="containerC">
+  <div class="child1_3">
+    <h1 style="padding:40px">
+      Команда профессионалов
+    </h1>
+    <p style="padding:40px">
+      Над проектом работали Диспетчер Тимоха, Страна Чудес и Главный Дизайнер
+    </p>
+  </div>
+
+  <div class="child2_3">
+    <figure class="image2">
+      <img src="https://internationalbanker.com/wp-content/uploads/2019/11/Banking-Professionals.jpg" class="image2"
+        alt="Image3">
+    </figure>
+  </div>
+</div>
+
+<div class="inputClass">
+  <div>
+    <h1>Your review:</h1>
+    
+  </div>
+  <div style="padding:50px">
+    <i><h1>
+      {{reviewForm.get('review').value}}
+    </h1></i>
+  </div>
+  <div class="form-group green-border-focus">
+    <form [formGroup]="reviewForm" >
+      <textarea formControlName="review" placeholder="review" class="form-control z-depth-1" rows="10" cols="100"></textarea>
+    </form>
+  </div>
+</div>

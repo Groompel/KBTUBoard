@@ -1,0 +1,66 @@
+<div *ngIf="user" id="profile-form">
+  <form (ngSubmit)="submitForm()" [formGroup]="profileInfo">
+    <div class="form-element">
+      <label for="name">
+        Имя:
+      </label>
+      <input formControlName="name" id="name" type="text">
+    </div>
+
+    <div class="form-element">
+      <label for="gender">
+        Пол:
+      </label>
+      <select formControlName="gender" id="gender">
+        <option [value]="1">Сильный</option>
+        <option [value]="2">Прекрасный</option>
+        <option [value]="3">Секретный</option>
+      </select>
+    </div>
+
+    <div class="form-element">
+      <label for="faculty">
+        Факультет:
+      </label>
+      <select formControlName="faculty" id="faculty">
+        <option value="fit">ФИТ</option>
+        <option value="smc">МКМ</option>
+        <option value="fgge">Геология</option>
+        <option value="feogi">ФЭНГИ</option>
+        <option value="ise">МШЭ</option>
+        <option value="bs">БШ</option>
+        <option value="kma">КМА</option>
+      </select>
+      <div *ngIf="!faculty.valid" class="errors">
+        Заполните это поле
+      </div>
+    </div>
+
+    <div class="form-element" id="input-for-year">
+      <label for="year" id="label-for-year">
+        Год обучения:
+      </label>
+      <input formControlName="year" id="year" max="5" min="1" type="number">
+    </div>
+
+    <div class="form-element">
+      <label>Ваши предметы:</label>
+      <div *ngFor="let subject of subjects.controls" class="subject">
+        <input [formControl]="subject" type="text">
+        <button (click)="subjects.removeAt(subjects.controls.indexOf(subject))">Удалить</button>
+      </div>
+      <button (click)="addSubject('')" type="button">Добавить предмет</button>
+    </div>
+
+    <div class="form-element">
+      <label for="quote">
+        Ваша любимая цитата:
+      </label>
+      <textarea cols="35" formControlName="quote" id="quote" rows="5"></textarea>
+    </div>
+
+    <div class="form-element">
+      <button [disabled]="!profileInfo.valid" type="submit">Стать преподавателем</button>
+    </div>
+  </form>
+</div>

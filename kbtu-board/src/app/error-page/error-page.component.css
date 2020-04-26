@@ -1,0 +1,26 @@
+@import "../../styles.css";
+
+#error-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 10% 20px;
+  margin: auto;
+  text-align: center;
+}
+
+#error-code {
+  font-size: 8em;
+  font-weight: bolder;
+  color: var(--color-error);
+}
+
+h2 {
+  font-size: 2em;
+  color: var(--color-dark-gray)
+}
+
+p {
+  font-size: 1.5em;
+  color: var(--color-medium-gray);
+}

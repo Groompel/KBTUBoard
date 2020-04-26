@@ -1,0 +1,682 @@
+<section class="header">
+  <div class="bg"></div>
+  <div class="searchbar-container">
+    <form (ngSubmit)="submitForm()" [formGroup]="searchQuery" class="searchbar">
+      <input autocomplete="off" class="query" formControlName="query" name="q"
+             placeholder="Наушники Airpods Pro, Calculus II..." type="text"/>
+      <input [value]="selectedCategory.id" name="category" type="hidden"/>
+      <input [value]="selectedSubcategory.method" name="subcategory" type="hidden"/>
+      <div class="select-container" id="category-select">
+        <div class="select-container-inner" (click)="handleClicks('category')">
+          <div class="triangle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23.81" height="14.102" viewBox="0 0 23.81 14.102">
+              <g id="dropdown-btn" data-name=" dropdown-btn" transform="translate(1.09 1.09)">
+                <path id="Path_151" data-name="Path 151" d="M.452,0,0,15.961"
+                      fill="none" stroke="#868686" transform="translate(21.31 0.001) rotate(43)"/>
+                <path id="Path_152" data-name="Path 152" d="M.454,16.407,0,0"
+                      transform="translate(11.923 11.602) rotate(133)" fill="none" stroke="#868686"/>
+              </g>
+            </svg>
+          </div>
+          <div class="select" name="category">
+            <div class="selected-option">{{ selectedCategory.name }}</div>
+          </div>
+        </div>
+        <div class="options-window">
+          <!-- <div class="select-option category-option" (click)="changeCategoryById(1, 'Услуги')">Услуги</div> -->
+          <div class="select-option category-option" (click)="changeCategoryById(2, 'Потеряно и найдено')" [style.display]="category.value !== 2 ? 'flex' : 'none'"><span>Потеряно и найдено</span>
+          </div>
+          <div class="select-option category-option" (click)="changeCategoryById(3, 'Учеба')" [style.display]="category.value !== 3 ? 'flex' : 'none'">Учеба</div>
+        </div>
+      </div>
+
+      <div class="select-container" id="subcategory-select">
+        <div class="select-container-inner" (click)="handleClicks('subcategory')">
+          <div class="triangle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23.81" height="14.102" viewBox="0 0 23.81 14.102">
+              <g id="dropdown-btn" data-name="dropdown-btn" transform="translate(1.09 1.09)">
+                <path id="Path_151" data-name="Path 151" d="M.452,0,0,15.961"
+                  transform="translate(21.31 0.001) rotate(43)" fill="none" stroke="#868686" />
+                <path id="Path_152" data-name="Path 152" d="M.454,16.407,0,0"
+                  transform="translate(11.923 11.602) rotate(133)" fill="none" stroke="#868686" />
+              </g>
+            </svg>
+          </div>
+          <div class="select" name="category">
+            <div class="selected-option">{{ selectedSubcategory.name }}</div>
+          </div>
+        </div>
+        <div class="options-window">
+          <div data-cat-id="2" class="select-option subcategory-option" (click)="changeSubcategory(1, 'Потерял')" [style.display]="subcategory.value !== 1 && category.value === 2 ? 'flex' : 'none'">
+            Потерял</div>
+          <div data-cat-id="2" class="select-option subcategory-option" (click)="changeSubcategory(2, 'Нашел')" [style.display]="subcategory.value !== 2 && category.value === 2 ? 'flex' : 'none'">
+            Нашел</div>
+          <div data-cat-id="3" class="select-option subcategory-option" (click)="changeSubcategory(3, 'Научить')">
+            Научить</div>
+        </div>
+      </div>
+
+      <button class="search-submit" type="submit">
+        <!-- SVG search-icon begin -->
+        <svg class="search-icon" version="1.1" xmlns="http://www.w3.org/2000/svg"
+             style="enable-background:new 0 0 511.999 511.999;" viewBox="0 0 511.999 511.999" x="0px"
+             xml:space="preserve" y="0px">
+          <g>
+            <g>
+              <path d="M508.874,478.708L360.142,329.976c28.21-34.827,45.191-79.103,45.191-127.309c0-111.75-90.917-202.667-202.667-202.667
+			S0,90.917,0,202.667s90.917,202.667,202.667,202.667c48.206,0,92.482-16.982,127.309-45.191l148.732,148.732
+			c4.167,4.165,10.919,4.165,15.086,0l15.081-15.082C513.04,489.627,513.04,482.873,508.874,478.708z M202.667,362.667
+			c-88.229,0-160-71.771-160-160s71.771-160,160-160s160,71.771,160,160S290.896,362.667,202.667,362.667z"/>
+            </g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+        </svg>
+        <!-- SVG search-icon end -->
+
+
+      </button>
+    </form>
+  </div>
+  <div class="categories-container">
+    <div class="category">
+      <div class="illustration">
+        <div class="circle">
+          <!-- SVG circle begin -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+            <circle id="Ellipse_10" data-name="Ellipse 10" cx="145" cy="145" r="145" fill="#fff" opacity="1" />
+            <path id="Path_149" data-name="Path 149" d="M290, 145 A145,145,0,0,1,0,145C290,145,145,145,290,145Z"
+              fill="rgba(0,0,0,0.06)" />
+          </svg>
+          <!-- SVG circle end -->
+        </div>
+        <div class="icon" id="case-icon">
+          <!-- SVG case icon begin -->
+          <svg id="Layer_1" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="m336.333 126.4c-8.284 0-15-6.716-15-15v-49.267h-130.666v49.267c0 8.284-6.716 15-15 15s-15-6.716-15-15v-64.267c0-8.284 6.716-15 15-15h160.667c8.284 0 15 6.716 15 15v64.267c-.001 8.284-6.716 15-15.001 15z"
+                fill="#08475e" />
+              <path
+                d="m321.333 111.4c0 8.284 6.716 15 15 15s15-6.716 15-15v-64.267c0-8.284-6.716-15-15-15h-80.333v30h65.333z"
+                fill="#05303d" />
+              <path d="m400.6 96.4h-289.2l-111.4 111.4v160.666l111.4 111.401h289.2l111.4-111.401v-160.666z"
+                fill="#ff3838" />
+              <path d="m256 96.4v383.467h144.6l111.4-111.401v-160.666l-111.4-111.4z" fill="#c30047" />
+              <path
+                d="m256 359.367c-8.284 0-15-6.716-15-15v-40.167c0-8.284 6.716-15 15-15 27.166 0 49.267-22.101 49.267-49.267 0-27.209-22.012-49.267-49.267-49.267-27.173 0-49.267 22.094-49.267 49.251 0 8.284-6.716 15.008-15 15.008s-15-6.708-15-14.992v-.016c0-43.699 35.552-79.251 79.25-79.251 43.788 0 79.283 35.401 79.283 79.267 0 38.581-27.707 70.813-64.267 77.844v26.59c.001 8.284-6.715 15-14.999 15z"
+                fill="#f4f1f1" />
+              <circle clip-rule="evenodd" cx="256" cy="400.6" fill="#f4f1f1" fill-rule="evenodd" r="15" />
+              <path
+                d="m47.133 96.4c-26.031 0-47.133 21.102-47.133 47.133v64.267h32.133c43.708 0 79.267-35.559 79.267-79.267v-32.133z"
+                fill="#ff7038" />
+              <path
+                d="m464.867 96.4c26.031 0 47.133 21.102 47.133 47.133v64.267h-32.133c-43.708 0-79.267-35.559-79.267-79.267v-32.133z"
+                fill="#ff3838" />
+              <path
+                d="m47.133 479.867c-26.031 0-47.133-21.103-47.133-47.134v-64.267h32.133c43.708 0 79.267 35.559 79.267 79.267v32.133h-64.267z"
+                fill="#ff7038" />
+              <path
+                d="m464.867 479.867c26.031 0 47.133-21.102 47.133-47.133v-64.267h-32.133c-43.708 0-79.267 35.559-79.267 79.267v32.133z"
+                fill="#ff3838" />
+              <g fill="#e7dfdd">
+                <path
+                  d="m256 160.667v30c27.255 0 49.267 22.058 49.267 49.267 0 27.166-22.101 49.267-49.267 49.267v70.167c8.284 0 15-6.716 15-15v-26.59c36.56-7.031 64.267-39.263 64.267-77.844 0-43.861-35.487-79.258-79.267-79.267z" />
+                <path clip-rule="evenodd" d="m271 400.6c0-8.279-6.721-15-15-15v30c8.279 0 15-6.722 15-15z"
+                  fill-rule="evenodd" />
+              </g>
+            </g>
+          </svg>
+          <!-- SVG case icon end -->
+        </div>
+      </div>
+      <div class="title">
+        <p>Потеряно и найдено</p>
+      </div>
+    </div>
+    <div class="category">
+      <div class="illustration">
+        <div class="circle">
+          <!-- SVG circle begin -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+            <circle id="Ellipse_10" data-name="Ellipse 10" cx="145" cy="145" r="145" fill="#fff" opacity="1" />
+            <path id="Path_149" data-name="Path 149" d="M290, 145 A145,145,0,0,1,0,145C290,145,145,145,290,145Z"
+              fill="rgba(0,0,0,0.06)" />
+          </svg>
+          <!-- SVG circle end -->
+        </div>
+        <div class="icon" id="books-icon">
+          <!-- SVG books icon begin -->
+          <svg version="1.1" viewBox="0 0 600 600" x="0px"
+               xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+            <path style="fill:#878493;" d="M504,443.5H32v-216c0-4.418-3.582-8-8-8H8c-4.418,0-8,3.582-8,8v240c0,4.418,3.582,8,8,8h496
+	c4.418,0,8-3.582,8-8v-16C512,447.082,508.418,443.5,504,443.5z"/>
+            <path style="fill:#AD7DC9;" d="M104,91.5H40c-4.418,0-8,3.582-8,8v336c0,4.418,3.582,8,8,8h64c4.418,0,8-3.582,8-8v-336
+	C112,95.082,108.418,91.5,104,91.5z"/>
+            <path style="fill:#8A6CBD;" d="M48,435.5v-336c0-4.418,3.582-8,8-8H40c-4.418,0-8,3.582-8,8v336c0,4.418,3.582,8,8,8h16
+	C51.582,443.5,48,439.918,48,435.5z"/>
+            <g>
+              <rect height="24" style="fill:#FCDE76;" width="80" x="32" y="139.5"/>
+              <rect height="24" style="fill:#FCDE76;" width="80" x="32" y="307.5"/>
+              <rect height="24" style="fill:#FCDE76;" width="80" x="32" y="355.5"/>
+            </g>
+            <g>
+              <rect x="32" y="139.5" style="fill:#FCCF6F;" width="16" height="24" />
+              <rect x="32" y="307.5" style="fill:#FCCF6F;" width="16" height="24" />
+              <rect x="32" y="355.5" style="fill:#FCCF6F;" width="16" height="24" />
+            </g>
+            <path style="fill:#696578;" d="M376,147.5c-4.418,0-8-3.582-8-8V54.923c0-4.418,3.582-8,8-8s8,3.582,8,8V139.5
+	C384,143.918,380.418,147.5,376,147.5z" />
+            <path style="fill:#00B5B8;" d="M432.486,67.493c-5.709-9.865-16.325-15.993-27.705-15.993s-21.996,6.128-27.705,15.993
+	c-1.435,2.479-1.435,5.536,0,8.015c5.709,9.865,16.325,15.993,27.705,15.993s21.996-6.128,27.705-15.993
+	C433.921,73.028,433.921,69.972,432.486,67.493z" />
+            <path style="fill:#E6608D;" d="M430.485,116.048c-11.625-5.984-30.273-9.534-54.485,5.808
+	c-24.212-15.341-42.859-11.791-54.485-5.808C294.26,130.074,280,170.659,280,203.5c0,24.632,11.231,45.566,32.48,60.54
+	c17.551,12.367,40.703,19.46,63.52,19.46s45.969-7.093,63.52-19.46C460.769,249.066,472,228.132,472,203.5
+	C472,170.659,457.74,130.074,430.485,116.048z" />
+            <path style="fill:#D4506F;" d="M392,272.068c-22.817,0-45.969-7.093-63.52-19.46C307.231,237.634,296,216.7,296,192.068
+	c0-26.704,9.429-58.527,27.606-77.029c-0.719,0.327-1.418,0.664-2.091,1.01C294.26,130.074,280,170.659,280,203.5
+	c0,24.632,11.231,45.566,32.48,60.54c17.551,12.367,40.703,19.46,63.52,19.46s45.969-7.093,63.52-19.46
+	c2.906-2.048,5.618-4.212,8.147-6.477C431.354,266.842,411.56,272.068,392,272.068z" />
+            <path style="fill:#FCDE76;" d="M235.245,424.367l-48.83-380.883c-0.562-4.383-4.577-7.483-8.952-6.918l-63.48,8.138
+	c-2.104,0.27-4.016,1.365-5.313,3.043s-1.875,3.804-1.605,5.909l48.83,380.883c0.518,4.038,3.959,6.984,7.925,6.984
+	c0.339,0,0.683-0.021,1.027-0.066l63.48-8.138c2.104-0.27,4.016-1.365,5.313-3.043S235.515,426.472,235.245,424.367z" />
+            <g>
+              <rect x="140.325" y="294.428" transform="matrix(-0.9919 0.1272 -0.1272 -0.9919 398.6732 595.3982)"
+                style="fill:#F2821C;" width="80.002" height="32.001" />
+              <path style="fill:#F2821C;" d="M194.554,106.965l-8.138-63.48c-0.562-4.383-4.577-7.483-8.952-6.918l-63.48,8.138
+		c-2.104,0.27-4.016,1.365-5.313,3.043s-1.875,3.804-1.605,5.909l8.138,63.481L194.554,106.965z" />
+              <polygon style="fill:#F2821C;"
+                points="215.839,272.991 197.606,130.77 118.255,140.943 135.549,275.839 214.9,265.666 	" />
+              <path style="fill:#F2821C;" d="M235.245,424.367l-10.173-79.351l-79.351,10.173l10.173,79.35c0.518,4.038,3.959,6.984,7.925,6.984
+		c0.339,0,0.683-0.021,1.027-0.066l63.48-8.138c2.104-0.27,4.016-1.365,5.313-3.043S235.515,426.472,235.245,424.367z" />
+            </g>
+            <path style="fill:#FCCF6F;" d="M113.983,44.705c-2.104,0.27-4.016,1.365-5.313,3.043s-1.875,3.804-1.605,5.909l48.83,380.883
+	c0.518,4.038,3.959,6.984,7.925,6.984c0.339,0,0.683-0.021,1.027-0.066l12.634-1.62L124.159,43.4L113.983,44.705z" />
+            <g>
+              <polygon style="fill:#E57712;" points="138.601,299.644 142.67,331.384 162.551,328.835 158.285,297.12 	" />
+              <path style="fill:#E57712;" d="M113.983,44.705c-2.104,0.27-4.016,1.365-5.313,3.043s-1.875,3.804-1.605,5.909l8.138,63.481
+		l18.554-2.379L124.159,43.4L113.983,44.705z" />
+              <polygon style="fill:#E57712;"
+                points="118.255,140.943 135.549,275.839 155.086,273.334 136.956,138.545 	" />
+              <path style="fill:#E57712;" d="M145.722,355.189l10.173,79.35c0.518,4.038,3.959,6.984,7.925,6.984
+		c0.339,0,0.683-0.021,1.027-0.066l12.634-1.62l-11.731-87.216L145.722,355.189z" />
+            </g>
+            <path style="fill:#FCDE76;" d="M504,307.5c4.418,0,8-3.582,8-8v-8c0-4.418-3.582-8-8-8H256c-8.822,0-16,7.178-16,16v128
+	c0,8.822,7.178,16,16,16h248c4.418,0,8-3.582,8-8v-8c0-4.418-3.582-8-8-8h-80v-112H504z" />
+            <path style="fill:#F0F0F1;" d="M480,307.5H272c-4.418,0-8,3.582-8,8v96c0,4.418,3.582,8,8,8h208c4.418,0,8-3.582,8-8v-96
+	C488,311.082,484.418,307.5,480,307.5z" />
+            <path style="fill:#E1E0E4;" d="M280,315.5h208c0-4.418-3.582-8-8-8H272c-4.418,0-8,3.582-8,8v96c0,4.418,3.582,8,8,8v-96
+	C272,319.082,275.582,315.5,280,315.5z" />
+            <g>
+              <rect x="264" y="331.5" style="fill:#B4B2BB;" width="224" height="16" />
+              <rect x="264" y="379.5" style="fill:#B4B2BB;" width="224" height="16" />
+            </g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+          </svg>
+
+          <!-- SVG handshake end -->
+        </div>
+      </div>
+      <div class="title">
+        <p>Учеба</p>
+      </div>
+    </div>
+  </div>
+  <a routerLink="/new" class="all-posts-btn">
+    <span>Подать объявление</span>
+    <!-- SVG arrow begin -->
+    <svg class="arrow" viewBox="0 0 469.33333 469.33333" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m437.332031 192h-160v-160c0-17.664062-14.335937-32-32-32h-21.332031c-17.664062 0-32 14.335938-32 32v160h-160c-17.664062 0-32 14.335938-32 32v21.332031c0 17.664063 14.335938 32 32 32h160v160c0 17.664063 14.335938 32 32 32h21.332031c17.664063 0 32-14.335937 32-32v-160h160c17.664063 0 32-14.335937 32-32v-21.332031c0-17.664062-14.335937-32-32-32zm0 0" />
+    </svg>
+    <!-- SVG arrow end -->
+
+  </a>
+</section>
+
+<section class="top-ads">
+  <div class="bg desktop">
+    <!-- SVG background line begin -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1923.887 959.717">
+      <path data-name="Path 174"
+        d="M-.5-575.463S125.874-118.3,454.236-86.589,1074.254-223.463,1437-210.769s482.5,594.087,482.5,594.087"
+        transform="translate(2.428 575.995)" fill="none" stroke="#b5e5ff8d" stroke-width="5" />
+    </svg>
+    <!-- SVG background line end -->
+
+
+  </div>
+  <h1 class="large-heading">Последние объявления</h1>
+
+  <div class="posts-container">
+    <div class="lost">
+      <h3 class="small-heading">Потеряно</h3>
+      <div class="posts-card-container">
+        <div class="posts-card" data-id="{{ ad.id }}" *ngFor="let ad of lastAds.lost">
+          <div class="posts-card-header" (click)="showAd(ad.id, 'lost')">
+            <p class="posts-card-title">{{ ad.title }}</p>
+            <div class="triangle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23.81" height="14.102" viewBox="0 0 23.81 14.102">
+                <g id="dropdown-btn" data-name=" dropdown-btn" transform="translate(1.09 1.09)">
+                  <path id="Path_151" data-name="Path 151" d="M.452,0,0,15.961"
+                    transform="translate(21.31 0.001) rotate(43)" fill="none" stroke="#868686" />
+                  <path id="Path_152" data-name="Path 152" d="M.454,16.407,0,0"
+                    transform="translate(11.923 11.602) rotate(133)" fill="none" stroke="#868686" />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="posts-card-body">
+            <div class="posts-card-image">
+              <div class="posts-image-cover">
+                <img src="https://picsum.photos/200" alt="картинка объявления">
+              </div>
+            </div>
+            <div class="posts-card-description">
+              <p class="posts-card-field-name">Дата:</p>
+              <p class="posts-card-field-data">{{ ad.date.start + "-" + ad.date.end }}</p>
+              <p class="posts-card-field-name">Описание:</p>
+              <p class="posts-card-field-data data-desc">{{ ad.description }}</p>
+
+
+              <a class="telegram-contact-btn" href="/">
+                <!-- SVG telegram icon begin -->
+                <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
+                  <path
+                    d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
+                </svg>
+                <!-- SVG telegram icon end -->
+                <span class="text">Написать</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="found">
+      <h3 class="small-heading">Найдено</h3>
+      <div class="posts-card-container">
+        <div class="posts-card" data-id="{{ ad.id }}" *ngFor="let ad of lastAds.found">
+          <div class="posts-card-header" (click)="showAd(ad.id, 'found')">
+            <p class="posts-card-title">{{ ad.title }}</p>
+            <div class="triangle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23.81" height="14.102" viewBox="0 0 23.81 14.102">
+                <g id="dropdown-btn" data-name=" dropdown-btn" transform="translate(1.09 1.09)">
+                  <path id="Path_151" data-name="Path 151" d="M.452,0,0,15.961"
+                    transform="translate(21.31 0.001) rotate(43)" fill="none" stroke="#868686" />
+                  <path id="Path_152" data-name="Path 152" d="M.454,16.407,0,0"
+                    transform="translate(11.923 11.602) rotate(133)" fill="none" stroke="#868686" />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="posts-card-body">
+            <div class="posts-card-image">
+              <div class="posts-image-cover">
+                <img src="https://picsum.photos/200" alt="картинка объявления">
+              </div>
+            </div>
+            <div class="posts-card-description">
+              <p class="posts-card-field-name">Дата:</p>
+              <p class="posts-card-field-data">{{ ad.date.start + "-" + ad.date.end }}</p>
+              <p class="posts-card-field-name">Описание:</p>
+              <p class="posts-card-field-data">{{ ad.description }}</p>
+
+
+              <a class="telegram-contact-btn" href="/">
+                <!-- SVG telegram icon begin -->
+                <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
+                  <path
+                    d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
+                </svg>
+                <!-- SVG telegram icon end -->
+                <span class="text">Написать</span>
+
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <a [routerLink]="'/search'"  [queryParams]="{query: '', category: 2, subcategory: 1}" class="all-posts-btn">
+    <span>Все объявления</span>
+    <!-- SVG arrow begin -->
+    <svg class="arrow" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+         style="enable-background:new 0 0 492.004 492.004;" viewBox="0 0 492.004 492.004" x="0px"
+         xml:space="preserve" y="0px">
+      <g>
+        <g>
+          <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+			c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+			v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+			c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+			l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"/>
+        </g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+    </svg>
+    <!-- SVG arrow end -->
+
+  </a>
+</section>
+
+<section class="top-teachers">
+  <div class="bg"></div>
+  <h1 class="large-heading">Лучшие преподаватели</h1>
+  <div class="teachers-card-container">
+    <div class="teacher-card" *ngFor="let teacher of bestTeachers">
+      <div class="card-header">
+        <div class="avatar-cover">
+          <img class="avatar" [src]="teacher.avatar" alt="аватар">
+        </div>
+        <div class="name">
+          <a href="#">{{ teacher.name.first }}</a>
+          <a href="#">{{ teacher.name.last }}</a>
+        </div>
+        <div class="rating">
+          <span class="number">Рейтинг: {{ teacher.rating }}</span>
+          <div class="star-line">
+            <div class="star-container" *ngFor="let number of getArray(10); let i = index" [attr.data-index]="i">
+              <svg class="star" viewBox="0 -10 511.98685 511" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                  [attr.fill]="i + 1 <= teacher.rating ? '#f7e81d' : 'inherit'" />
+              </svg>
+            </div>
+            <!-- {{ i > teacher.rating ? 100 + '%' : ((teacher.rating - i) * 10) + '%'" height="100% }} -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-info">
+          <div class="data-row">
+            <p class="card-field-name">Факультет:</p>
+            <p class="card-field-data">{{ teacher.faculty }}</p>
+          </div>
+          <div class="data-row">
+            <p class="card-field-name">Курс:</p>
+            <p class="card-field-data">{{ teacher.yearOfStudy }}</p>
+          </div>
+          <div class="data-row-left-flow">
+            <p class="card-field-name">Преподает:</p>
+            <p class="card-field-data">{{ teacher.subjects }}</p>
+          </div>
+        </div>
+        <div class="teacher-quote">
+          <div class="upper-quote quote">
+            <!-- SVG quote begin -->
+            <svg style="enable-background:new 0 0 95.333 95.332;" version="1.1" viewBox="0 0 95.333 95.332"
+                 x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+              <g>
+                <g>
+                  <path
+                    d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+        c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
+        s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
+        c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
+        c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z"/>
+                  <path
+                    d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+        c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
+        c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
+        c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
+        c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
+                </g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </svg>
+            <!-- SVG quote end -->
+
+          </div>
+
+          <span class="text">{{ teacher.quote }}</span>
+
+          <div class="lower-quote quote">
+            <!-- SVG quote begin -->
+            <svg style="enable-background:new 0 0 95.333 95.332;" version="1.1" viewBox="0 0 95.333 95.332"
+                 x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+              <g>
+                <g>
+                  <path
+                    d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+        c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
+        s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
+        c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
+        c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z"/>
+                  <path
+                    d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+        c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
+        c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
+        c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
+        c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
+                </g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </svg>
+            <!-- SVG quote end -->
+
+          </div>
+        </div>
+
+        <div class="buttons">
+          <a href="#" class="profile-btn">
+            <!-- SVG profile-icon begin -->
+            <svg height="512pt" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="m437.019531 74.980469c-48.351562-48.351563-112.640625-74.980469-181.019531-74.980469-68.382812 0-132.667969 26.628906-181.019531 74.980469-48.351563 48.351562-74.980469 112.636719-74.980469 181.019531 0 68.378906 26.628906 132.667969 74.980469 181.019531 48.351562 48.351563 112.636719 74.980469 181.019531 74.980469 68.378906 0 132.667969-26.628906 181.019531-74.980469 48.351563-48.351562 74.980469-112.640625 74.980469-181.019531 0-68.382812-26.628906-132.667969-74.980469-181.019531zm-308.679687 367.40625c10.707031-61.648438 64.128906-107.121094 127.660156-107.121094 63.535156 0 116.953125 45.472656 127.660156 107.121094-36.347656 24.972656-80.324218 39.613281-127.660156 39.613281s-91.3125-14.640625-127.660156-39.613281zm46.261718-218.519531c0-44.886719 36.515626-81.398438 81.398438-81.398438s81.398438 36.515625 81.398438 81.398438c0 44.882812-36.515626 81.398437-81.398438 81.398437s-81.398438-36.515625-81.398438-81.398437zm235.042969 197.710937c-8.074219-28.699219-24.109375-54.738281-46.585937-75.078125-13.789063-12.480469-29.484375-22.328125-46.359375-29.269531 30.5-19.894531 50.703125-54.3125 50.703125-93.363281 0-61.425782-49.976563-111.398438-111.402344-111.398438s-111.398438 49.972656-111.398438 111.398438c0 39.050781 20.203126 73.46875 50.699219 93.363281-16.871093 6.941406-32.570312 16.785156-46.359375 29.265625-22.472656 20.339844-38.511718 46.378906-46.585937 75.078125-44.472657-41.300781-72.355469-100.238281-72.355469-165.574219 0-124.617188 101.382812-226 226-226s226 101.382812 226 226c0 65.339844-27.882812 124.277344-72.355469 165.578125zm0 0" />
+            </svg>
+            <!-- SVG profile-icon end -->
+            Профиль
+          </a>
+          <a href="#" class="telegram-contact-btn">
+            <!-- SVG telegram icon begin -->
+            <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
+              <path
+                d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
+            </svg>
+            <!-- SVG telegram icon end -->
+            Написать
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <a [routerLink]="'/search'"  [queryParams]="{query: '', category: 3, subcategory: 1}" class="all-posts-btn">
+    <span>Все преподаватели</span>
+    <!-- SVG arrow begin -->
+    <svg class="arrow" style="enable-background:new 0 0 492.004 492.004;" version="1.1"
+         viewBox="0 0 492.004 492.004" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+         y="0px">
+      <g>
+        <g>
+          <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+			c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+			v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+			c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+			l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"/>
+        </g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+      <g>
+      </g>
+    </svg>
+    <!-- SVG arrow end -->
+
+
+  </a>
+</section>
+
+<section class="contact">
+  <h2 class="medium-heading">Есть вопросы или предложения?</h2>
+  <h2 class="medium-heading">Напишите нам!</h2>
+
+</section>

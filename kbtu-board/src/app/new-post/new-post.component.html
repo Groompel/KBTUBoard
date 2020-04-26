@@ -1,0 +1,53 @@
+<div id="form-container">
+  <div class="tab">
+    <button (click)="openCategory('lost')" class="tablinks">Потеряно и Найдено</button>
+    <button (click)="openCategory('study')" class="tablinks">Учеба</button>
+  </div>
+
+  <div class="tabcontent">
+    <form (ngSubmit)="submitForm()" [formGroup]="post">
+      <input formControlName="title" placeholder="Заголовок" type="text">
+      <div *ngIf="!title.valid && (title.dirty || title.touched)" class="alerts">
+        <div *ngIf="title.errors.required" class="alert">Заголовок обязателен</div>
+        <div *ngIf="title.errors.minlength" class="alert">Короче 5 символов</div>
+        <div *ngIf="title.errors.maxlength" class="alert">Длиннее 40 символов</div>
+      </div>
+
+      <input formControlName="description" placeholder="Описание" type="text">
+      <div *ngIf="!description.valid && (description.dirty || description.touched)" class="alerts">
+        <div *ngIf="description.errors.minlength " class="alert">Короче 10 символов</div>
+        <div *ngIf="description.errors.maxlength" class="alert">Длиннее 200 символов</div>
+      </div>
+
+      <div class="content" formGroupName="lost" id="lost">
+        <input formControlName="place" placeholder="Место находки" type="text">
+        <div class="one-line-input">
+          <div>
+            Дата:
+          </div>
+          <input formControlName="date" type="date">
+        </div>
+
+        <div class="one-line-input">
+          <div>Время:</div>
+          <input formControlName="time" placeholder="Время находки" type="time">
+        </div>
+        <select formControlName="subcategory_id">
+          <option value="1">Потерял</option>
+          <option value="2">Нашел</option>
+        </select>
+        <div *ngIf="!lost.valid && lost.touched && !subcategory_id.valid" class="alerts">
+          <div *ngIf="subcategory_id.errors.required" class="alert">
+            Вы потеряли или нашли?
+          </div>
+        </div>
+      </div>
+
+      <button [disabled]="disableButton()" type="submit">Подать объявление</button>
+    </form>
+    <div class="content" id="study">
+      <p>Для того, чтобы стать преподавателем, необходимо настроить профиль.</p>
+      <button routerLink="/profile/edit">Перейти</button>
+    </div>
+  </div>
+</div>

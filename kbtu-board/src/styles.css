@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #53c46d;
+  --color-primary-light: #5cdf9e;
+  --color-accent: #f5f555;
+  --color-black: #1d2233;
+  --color-light-gray: #bbbbbb;
+  --color-medium-gray: #7b7b7b;
+  --color-dark-gray: #525252;
+  --color-error: #ff6c6c;
+  --color-error-light: #ffc7c7;
+  --color-error-extralight: #ffeaea;
+  --border-btn-radius: 0.3rem;
+  --border-color-gray: #cbcbcb;
+  --media-desktop-small: 1024px;
+  --media-desktop-large: 1440px;
+  --media-tablet: 768px;
+  --media-mobile-large: 425px;
+  --media-mobile-medium: 375px;
+  --media-mobile-small: 320px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Montserrat", serif;
+  color: var(--color-black);
+}
+
+
+/* Headings */
+
+.large-heading {
+  font-weight: 700;
+  font-size: 43.5px;
+}
+
+.medium-heading {
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.small-heading {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+section {
+  position: relative;
+  padding: 0 120px;
+  width: 100vw;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+svg,
+path {
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@keyframes fade-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Media queries */
+
+/* Laptop small */
+@media screen and (max-width: 1070px) {
+  section {
+    padding: 0 60px;
+  }
+}
+/* Tablet */
+@media screen and (max-width: 768px) {
+  section {
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .desktop {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+
+  .tablet {
+    display: none;
+  }
+
+  .large-heading {
+    font-size: 32px;
+  }
+}
