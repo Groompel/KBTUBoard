@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path
 
 from rest_framework_jwt.views import obtain_jwt_token
-from api.views.views import PostsList, PostDetails
+from api.views.views import PostsList, PostDetails, telegramCode, checkTelegramCode
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/', obtain_jwt_token),
     path('api/posts/', PostsList.as_view()),
     path('api/posts/<int:pk>', PostDetails.as_view()),
+    path('code/', telegramCode),
+    path('check-code/', checkTelegramCode)
 ]
