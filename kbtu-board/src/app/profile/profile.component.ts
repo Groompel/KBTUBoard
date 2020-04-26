@@ -13,8 +13,8 @@ import {USERS} from '../_backend_data/backend-data';
 })
 export class ProfileComponent implements OnInit {
 
-  posts: Post[];
-  user: User;
+  posts;
+  user;
 
   constructor(
     public postsService: PostsService,

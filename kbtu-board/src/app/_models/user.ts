@@ -2,10 +2,10 @@ export interface User {
   id?: number;
   token?: string;
   username: string;
-  password: string;
-  name: string;
-  telegram_chat_id: number;
-  telegram_username: string;
+  password?: string;
+  name?: string;
+  telegram_chat_id?: number;
+  telegram_username?: string;
   profile_photo?: string;
   faculty?: string;
   gender?: number;

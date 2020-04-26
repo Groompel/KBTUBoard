@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
         this.isLoggedIn = true;
         this.authService.currentUser.subscribe(data => {
           this.user = data;
-          this.user = this.user.user;
         });
       }
       if(event instanceof RoutesRecognized) {

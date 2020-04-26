@@ -514,17 +514,17 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.isLoading.form = true;
         this.authService
           .register(
-            new User(
-              this.name.value.trim(),
-              this.username.value.trim(),
-              this.password.value,
-              this.telegramId.value
-            )
+            {
+              name: this.name.value.trim(),
+              username: this.username.value.trim(),
+              password: this.password.value,
+              code: this.codeResponse.code,
+            }
           )
           .pipe(first())
           .subscribe(
             (data) => {
-              this.router.navigate([this.returnUrl]);
+              // this.router.navigate([this.returnUrl]);
             },
             (error) => {
               this.isLoading.form = false;

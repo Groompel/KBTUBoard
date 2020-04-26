@@ -1,6 +1,6 @@
 export interface Post {
+  id?: number;
   user_id: number;
-  id: number;
   title: string;
   subcategory_id: number;
   description?: string;

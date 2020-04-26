@@ -36,7 +36,7 @@
           <option value="1">Потерял</option>
           <option value="2">Нашел</option>
         </select>
-        <div *ngIf="!lost.valid && lost.touched && !subcategory_id.valid" class="alerts">
+        <div class="alerts">
           <div *ngIf="subcategory_id.errors.required" class="alert">
             Вы потеряли или нашли?
           </div>

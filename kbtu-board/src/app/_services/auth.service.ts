@@ -33,6 +33,7 @@ export class AuthService {
   }
 
   login(username, password) {
+
     return this.httpClient.post<any>(`${environment.apiUrl}/login`, {username, password}).pipe(map(user => {
       if (user) {
         localStorage.setItem("currentUser", JSON.stringify(user));
@@ -43,10 +44,10 @@ export class AuthService {
   }
 
   register(user) {
-    return this.httpClient.post<any>(`${environment.apiUrl}/register`, {user}).pipe(map(user => {
-      if (user) {
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        this.currentUserSubject.next(user);
+    return this.httpClient.post<any>(`${environment.apiUrl}/register`, {user}).pipe(map(data => {
+      console.log(data)
+      if (data === 'Success') {
+        this.login(user.username, user.password);
       }
       return user;
     }));
