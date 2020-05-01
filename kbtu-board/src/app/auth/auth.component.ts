@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
   };
 
   // Link to telegram bot (may be moved to environment.ts)
-  telegramBotLink = 'https://t.me/thugboikz';
+  telegramBotLink = 'https://t.me/TestingCookieBot';
 
   // Link to redirect to
   returnUrl = '/';
@@ -341,6 +341,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
           currentInputForm.addClass('disabled-input');
         });
       }, err => {
+        console.log(err)
         this.isLoading.form = false;
         this.authResponse.showErrorResponse = true;
         this.authResponse.errorMessage = err.error || 'Произошла непредвиденная ошибка. Поробуйте еще раз.';
@@ -497,6 +498,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
               this.isLoading.form = false;
               this.authResponse.showErrorResponse = true;
               this.authResponse.errorMessage = error.error;
+
+              console.log(error)
+              console.log(this.authResponse.errorMessage)
             }
           );
       }
@@ -505,7 +509,6 @@ export class AuthComponent implements OnInit, AfterViewInit {
       // Show telegram
       if (this.telegramId.disabled) {
         console.log('Telegram is not valid. Waiting for validation.');
-
         if (this.user.valid) {
           // All fields correct. Show Telegram section
           this.getTelegramCode();
@@ -524,7 +527,13 @@ export class AuthComponent implements OnInit, AfterViewInit {
           .pipe(first())
           .subscribe(
             (data) => {
-              // this.router.navigate([this.returnUrl]);
+              this.authService.login(this.username.value, this.password.value).subscribe(data => {
+                this.router.navigate([this.returnUrl])
+              }, error => {
+                this.isLoading.form = false;
+                this.authResponse.showErrorResponse = true;
+                this.authResponse.errorMessage = error.error;
+              });
             },
             (error) => {
               this.isLoading.form = false;

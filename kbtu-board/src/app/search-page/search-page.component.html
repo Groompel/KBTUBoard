@@ -72,7 +72,8 @@
                 <!-- SVG checkbox icon end -->
               </div>
             </div>
-            <div class="checkbox-label">Искать в заголовке и описании</div>
+            <div class="checkbox-label">
+              {{ category.value == 2 ? 'Искать в заголовке и описании' : 'Искать по имени и по предметам' }}</div>
           </div>
         </div>
         <h3 class="small-heading">Фильтры</h3>
@@ -235,45 +236,220 @@
         </svg>
         <!-- SVG loading icon end -->
       </div>
-      <div class="error-message" [style.display]="queryResultsInfo.error.display ? 'block' : 'none'">{{this.queryResultsInfo.error.message}}</div>
+      <div class="error-message" [style.display]="queryResultsInfo.error.display ? 'block' : 'none'">
+        {{this.queryResultsInfo.error.message}}</div>
     </div>
 
     <div class="posts-list-container">
       <div class="posts-list" *ngIf="posts && !queryResultsInfo.isLoading">
-        <div class="post-container" *ngFor="let post of posts">
-          <div class="post-left-cn">
+        <div class="posts-results" *ngIf="category.value == 2">
+          <div class="post-container" *ngFor="let post of posts">
+            <div class="post-left-cn">
 
-            <div class="image-container">
-              <div class="image-cover">
-                <img *ngIf="post.img" [src]="post.img ? post.img : ''" alt="image">
-                <div *ngIf="!post.img" class="alt-text">
-                  Без фото
+              <div class="image-container">
+                <div class="image-cover">
+                  <img *ngIf="post.photo" [src]="post.photo ? post.photo : ''" alt="image">
+                  <div *ngIf="!post.photo" class="alt-text">
+                    Без фото
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-container">
+                <a class="telegram-contact-btn" [href]="'https://telegram.me/' + post.user.telegram_username"
+                  target="_blank">
+                  <!-- SVG Telegam icon begin -->
+                  <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
+                    <path
+                      d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
+                  </svg>
+                  <!-- SVG Telegam icon end -->
+                  <span class="btn-name">Написать</span>
+                </a>
+              </div>
+            </div>
+            <div class="post-right-cn">
+              <div class="post-title">{{ post.title }}</div>
+              <div class="post-info">
+                <div class="post-description">
+                  {{post.description}}
+                </div>
+                <div class="date">{{ formatDate(post.creation_date)}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="teachers-results" *ngIf="category.value == 3">
+          <div class="teacher-card" *ngFor="let teacher of posts">
+            <div class="card-header">
+              <div class="avatar-cover">
+                <img class="avatar" [src]="teacher.user.profile_photo" alt="аватар">
+              </div>
+              <div class="name">
+                <a [href]="'https://t.me/' + teacher.user.telegram_username" target="_blank">{{ teacher.user.name }}</a>
+              </div>
+              <div class="rating">
+                <span class="number">Рейтинг: {{ teacher.rating }}</span>
+                <div class="star-line">
+                  <div class="star-container" *ngFor="let number of getArray(10); let i = index" [attr.data-index]="i">
+                    <svg class="star" viewBox="0 -10 511.98685 511" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                        [attr.fill]="i + 1 <= teacher.rating ? '#f7e81d' : 'inherit'" />
+                    </svg>
+                  </div>
+                  <!-- {{ i > teacher.rating ? 100 + '%' : ((teacher.rating - i) * 10) + '%'" height="100% }} -->
                 </div>
               </div>
             </div>
-
-            <div class="button-container">
-              <a class="telegram-contact-btn" [href]="'https://telegram.me/' + post.user.telegramId">
-                <!-- SVG Telegam icon begin -->
-                <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
-                  <path
-                    d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
-                </svg>
-                <!-- SVG Telegam icon end -->
-                <span class="btn-name">Написать</span>
-              </a>
-            </div>
-          </div>
-          <div class="post-right-cn">
-            <div class="post-title">{{ post.title }}</div>
-            <div class="post-info">
-              <div class="post-description">
-                {{post.description}}
+            <div class="card-body">
+              <div class="card-info">
+                <div class="data-row">
+                  <p class="card-field-name">Факультет:</p>
+                  <p class="card-field-data">{{ teacher.user.faculty }}</p>
+                </div>
+                <div class="data-row">
+                  <p class="card-field-name">Курс:</p>
+                  <p class="card-field-data">{{ teacher.user.year_of_study }}</p>
+                </div>
+                <div class="data-row-left-flow">
+                  <p class="card-field-name">Преподает:</p>
+                  <p class="card-field-data">{{ teacher.subject }}</p>
+                </div>
               </div>
-              <div class="date">{{ formatDate(post.date) }}</div>
+              <div class="teacher-quote">
+                <div class="upper-quote quote">
+                  <!-- SVG quote begin -->
+                  <svg style="enable-background:new 0 0 95.333 95.332;" version="1.1" viewBox="0 0 95.333 95.332"
+                    x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+                    <g>
+                      <g>
+                        <path
+                          d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+              c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
+              s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
+              c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
+              c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
+                        <path
+                          d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+              c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
+              c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
+              c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
+              c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
+                      </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                  </svg>
+                  <!-- SVG quote end -->
+
+                </div>
+
+                <span class="text">{{ teacher.quote }}</span>
+
+                <div class="lower-quote quote">
+                  <!-- SVG quote begin -->
+                  <svg style="enable-background:new 0 0 95.333 95.332;" version="1.1" viewBox="0 0 95.333 95.332"
+                    x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+                    <g>
+                      <g>
+                        <path
+                          d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+              c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
+              s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
+              c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
+              c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
+                        <path
+                          d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+              c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
+              c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
+              c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
+              c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
+                      </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                  </svg>
+                  <!-- SVG quote end -->
+
+                </div>
+              </div>
+
+              <div class="buttons">
+                <a href="#" class="telegram-contact-btn">
+                  <!-- SVG telegram icon begin -->
+                  <svg enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="m12 24c6.617 0 12-5.383 12-12s-5.383-12-12-12-12 5.383-12 12 5.383 12 12 12zm0-22.5c5.79 0 10.5 4.71 10.5 10.5s-4.71 10.5-10.5 10.5-10.5-4.71-10.5-10.5 4.71-10.5 10.5-10.5z" />
+                    <path
+                      d="m7.896 14.155 1.568-.681-.44.441c-.141.141-.22.332-.22.53v2.935c0 .672.812.998 1.28.53l1.574-1.574 3.43 1.715c.444.222.981-.041 1.073-.537l1.957-10.761c.103-.579-.467-1.047-1.012-.833l-12.716 4.977c-.57.222-.646 1.002-.13 1.331l2.934 1.872c.21.134.475.155.702.055zm8.506-6.347-1.537 8.455-3.02-1.509c-.292-.146-.64-.085-.865.141l-.676.676v-.813l3.007-3.007c.583-.583-.073-1.545-.829-1.218l-4.817 2.09-1.354-.864z" />
+                  </svg>
+                  <!-- SVG telegram icon end -->
+                  Написать
+                </a>
+              </div>
             </div>
+
           </div>
         </div>
       </div>

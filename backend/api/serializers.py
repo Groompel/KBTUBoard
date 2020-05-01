@@ -2,10 +2,6 @@ from rest_framework import serializers
 from api.models import Post, Code, UserProfile, TeacherInfo
 
 
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = '__all__'
 
 class CodeSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=6)
@@ -40,16 +36,23 @@ class CodeSerializer(serializers.Serializer):
 #     year_of_study = serializers.IntegerField(default=0)
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    user = serializers.CharField(read_only=True)
+
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['id', 'user', 'name', 'telegram_username', 'profile_photo', 'faculty', 'gender', 'year_of_study']
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     user = UserProfileSerializer(read_only=True)
     user_id = serializers.IntegerField(write_only=True)
-
     class Meta:
         model = TeacherInfo
         fields = '__all__'
 
+class PostSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer()
+    class Meta:
+        model = Post
+        fields = '__all__'

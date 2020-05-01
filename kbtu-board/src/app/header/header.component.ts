@@ -43,10 +43,11 @@ export class HeaderComponent implements OnInit {
         });
       }
       if(event instanceof RoutesRecognized) {
-
         if (event.url === "/") {
           this.showBg = false;
+          console.log(this.showBg)
         } else {
+          console.log(this.showBg, 'NOT MIEN')
           this.showBg = true;
         }
       }

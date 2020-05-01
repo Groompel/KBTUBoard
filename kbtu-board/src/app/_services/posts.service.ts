@@ -2,42 +2,35 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Post} from '../_models/post';
 import {POSTS} from '../_backend_data/mock-posts';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
+
   posts = POSTS;
   postsSubject = new BehaviorSubject<Post[]>(POSTS);
   userPostsSubject = new BehaviorSubject<Post[]>(POSTS);
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  public getPostsByCategoryId(categoryId: number, subcategoryId): Observable<any> {
 
-    // const posts = this.getCategory(categoryId);
-    // if (!posts) {
-    //   return of(false);
-    // }
-
-    // return of(posts.filter(post => post.subcategoryId === subcategoryId));
-    return of(false);
+  public getPosts(query, category, subcategory, searchInDesc, sortBy, firstPostsBy): Observable<any> {
+    console.log(query)
+     return this.httpClient.get<any>(`${environment.apiUrl}/search/${category}`, {params: {
+      query: query,
+      subcategory: subcategory,
+      searchInDesc: searchInDesc ? '1' : '0',
+      sortBy: sortBy,
+      firstPostsBy: firstPostsBy,
+    }}).pipe(map(data => {
+      return data;
+    }));
   }
-
-  getCategory(categoryId) {
-    // if (categoryId === 1) {
-    //   return POSTS.help;
-    // } else if (categoryId === 2) {
-    //   return POSTS.lostAndFound;
-    // } else if (categoryId === 3) {
-    //   return POSTS.study;
-    // } else {
-    //   return false;
-    // }
-    return of(false);
-  }
-
 
   public getPostById(id: number): Observable<Post> {
     return of(this.postsSubject.value.find(p => p.id === id));

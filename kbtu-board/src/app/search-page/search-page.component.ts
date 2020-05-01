@@ -201,7 +201,14 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  formatDate(date: Date) {
+  getArray(n) {
+    n = parseInt(n);
+    return Array(n).fill(0, 0, n);
+  }
+
+
+  formatDate(date) {
+    date = new Date(date)
     const now = new Date();
     let display = {
       year: false,
@@ -236,7 +243,14 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
     this.queryResultsInfo.isLoading = true;
 
     this.postsService
-      .getPostsByCategoryId(this.category.value, this.subcategory.value)
+      .getPosts(
+        this.query.value,
+        this.category.value,
+        this.subcategory.value,
+        this.searchInDescription.value,
+        this.sortBy.value,
+        this.firstPostsBy.value
+      )
       .subscribe((data) => {
         console.log("Got posts!");
         this.queryResultsInfo.isLoading = false;
@@ -305,9 +319,10 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
     });
 
     if (this.urlParams.searchInDescription) {
-      $('.checkbox-container.search-in-description .checkbox').addClass('checked');
+      $(".checkbox-container.search-in-description .checkbox").addClass(
+        "checked"
+      );
     }
-
 
     $(document).on("click", (e) => {
       const clickedElement = $(e.target);
@@ -329,7 +344,6 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
     $(".checkbox-container").on("click", (event) => {
       this.handleCheckboxes(event);
     });
-
   }
 
   ngOnInit(): void {

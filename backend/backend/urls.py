@@ -21,12 +21,14 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login', views.UserLoginViewJWT.as_view()),
-    path('register', views.register),
-    path('api/posts/', views.PostsList.as_view()),
-    path('api/posts/<int:pk>', views.PostDetails.as_view()),
+    path('login/', views.UserLoginViewJWT.as_view()),
+    path('register/', views.register),
+    path('posts/', views.PostsList.as_view()),
+    path('posts/<int:pk>', views.PostDetails.as_view()),
     path('code/', views.telegramCode),
     path('check-code/', views.checkTelegramCode),
     path('teachers/', views.teachers_list),
     path('teachers/<int:teacher_id>', views.teacher_detail),
+    path('users/<str:username>', views.UserDetails.as_view()),
+    path('search/<int:category_id>', views.search_view),
 ]

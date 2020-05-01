@@ -108,7 +108,7 @@
                 </div>
               </div>
               <div class="code-control">
-                <div class="code-timer" ng-app ng-controller="codeTimer">
+                <div class="code-timer" ng-app ng-controller="codeTimer" *ngIf="telegramId.invalid">
                   <span>
                     {{ telegramId.hasError("codeTimeExpired") ? telegramId.errors.codeTimeExpired.errorMessage : codeTimerMessage }}
                   </span>

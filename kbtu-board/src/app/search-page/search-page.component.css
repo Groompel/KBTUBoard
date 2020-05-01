@@ -75,7 +75,7 @@ form.search-query {
 .checkbox-container {
   display: flex;
   align-items: baseline;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .checkbox-inner {
@@ -262,10 +262,11 @@ form.search-query {
   margin-top: 20px;
 }
 
-.posts-list {
+.posts-results {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 15px;
+  grid-row-gap: 20px;
+  grid-template-rows: auto;
 }
 
 .post-container {
@@ -399,9 +400,266 @@ form.search-query {
   color: var(--color-medium-gray);
 }
 
+
+
+.all-posts-btn {
+  background-color: var(--color-accent);
+  color: var(--color-black);
+  border-radius: var(--border-btn-radius);
+  border: 2px solid var(--color-accent);
+  font-size: 1.78rem;
+  padding: 10px 0;
+  width: 450px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.all-posts-btn:hover .arrow {
+  width: 25px;
+  fill: var(--color-black);
+}
+.all-posts-btn .arrow {
+  width: 0;
+  margin-left: 10px;
+  margin-top: 3px;
+  transition: all 0.2s ease;
+}
+
+
+
+.teachers-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 350px);
+  grid-gap: 20px;
+}
+
+
+.teacher-card {
+  background: #fff;
+  min-width: 350px;
+  border-radius: 10px;
+  flex: 0 1 360px;
+  height: 530px;
+  padding: 20px 20px;
+  text-align: left;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.teacher-card .card-header {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 60% 40%;
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "avatar name"
+    "avatar rating";
+}
+
+.teacher-card .card-header .avatar-cover {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  grid-area: avatar;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+
+}
+
+.avatar-cover .avatar {
+  width: 100%;
+}
+
+.teacher-card .card-header .name {
+  grid-area: name;
+}
+
+.teacher-card .card-header .name a {
+  color: var(--color-black);
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 600;
+}
+
+.teacher-card .card-header .name a:hover {
+  text-decoration: underline;
+}
+
+.teacher-card .card-header .rating {
+  grid-area: rating;
+}
+.rating .number {
+  font-size: 0.875rem;
+  color: var(--color-medium-gray);
+}
+
+.star-line {
+  width: 100%;
+  height: 40%;
+  display: flex;
+}
+.star-container {
+  position: relative;
+}
+
+.star-container .star {
+  width: 20px;
+  fill: #d4d4d4;
+}
+
+.top-teachers .card-body {
+  padding: 10px 0;
+  line-height: 1.563rem;
+}
+
+.top-teachers .card-info {
+  height: 140px;
+}
+
+.top-teachers .card-field-name {
+  font-weight: 600;
+  height: 60%;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-teachers .card-field-data {
+  line-height: 1.25rem;
+  width: 100%;
+  color: var(--color-dark-gray);
+}
+
+.teacher-quote {
+  margin: 10px 0 30px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  height: 150px;
+  border-top: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
+}
+.teacher-quote .text {
+  margin: 0 20px;
+  font-size: 1.35rem;
+  font-family: "Playfair Display", serif;
+  color: var(--color-black);
+}
+
+.quote {
+  width: 25px;
+  fill: rgb(134, 134, 134);
+  position: absolute;
+}
+
+.upper-quote {
+  left: 0;
+  top: -10px;
+}
+
+.lower-quote {
+  right: 0;
+  bottom: -10px;
+  transform: rotate(180deg);
+}
+
+.teacher-card .buttons {
+  width: 88%;
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+}
+
+.telegram-contact-btn svg {
+  transition: 0.2 ease-in;
+}
+
+.top-teachers .profile-btn,
+.telegram-contact-btn {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  border-radius: var(--border-btn-radius);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  justify-content: center;
+  transition: all 0.2s ease-in;
+}
+
+.top-teachers .profile-btn svg,
+.telegram-contact-btn svg {
+  width: 25px;
+  transition: all 0.2s ease-in;
+  margin-right: 5px;
+}
+
+.top-teachers .profile-btn {
+  border: 2px solid var(--color-dark-gray);
+  color: var(--color-dark-gray);
+}
+
+.top-teachers .profile-btn:hover {
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+  color: #f9f9f9;
+}
+
+.top-teachers .profile-btn:hover svg {
+  fill: #f9f9f9;
+}
+
+.telegram-contact-btn {
+  border: 2px solid #009fee;
+  color: #0088cc;
+}
+
+.telegram-contact-btn svg {
+  fill: #0088cc;
+}
+
+.telegram-contact-btn:hover {
+  background-color: #009fee;
+  color: #fff;
+}
+
+.telegram-contact-btn:hover svg {
+  fill: #fff;
+}
+
+.top-teachers .all-posts-btn {
+  background-color: transparent;
+  border: 2px solid var(--color-accent);
+}
+.top-teachers .all-posts-btn span, .header .all-posts-btn span {
+  color: var(--color-accent);
+}
+
+.top-teachers .all-posts-btn .arrow {
+  fill: var(--color-accent);
+}
+
+
 @media screen and (max-width: 850px) {
   .post-container {
     grid-template-columns: 1fr;
     height: fit-content;
   }
 }
+
+
+

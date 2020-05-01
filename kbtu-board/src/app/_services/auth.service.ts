@@ -28,13 +28,10 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  setUser(user) {
-    this.currentUserSubject.next(user);
-  }
-
   login(username, password) {
-
-    return this.httpClient.post<any>(`${environment.apiUrl}/login`, {username, password}).pipe(map(user => {
+    console.log('Logging in...')
+    return this.httpClient.post<any>(`${environment.apiUrl}/login/`, {username, password}).pipe(map(user => {
+      console.log('Recieved')
       if (user) {
         localStorage.setItem("currentUser", JSON.stringify(user));
         this.currentUserSubject.next(user);
@@ -44,7 +41,7 @@ export class AuthService {
   }
 
   register(user) {
-    return this.httpClient.post<any>(`${environment.apiUrl}/register`, {user}).pipe(map(data => {
+    return this.httpClient.post<any>(`${environment.apiUrl}/register/`, {user}).pipe(map(data => {
       console.log(data)
       if (data === 'Success') {
         this.login(user.username, user.password);

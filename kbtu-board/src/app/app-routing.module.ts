@@ -11,6 +11,7 @@ import {NewPostComponent} from './new-post/new-post.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ProfileEditComponent} from './profile-edit/profile-edit.component';
 import {PostEditComponent} from './post-edit/post-edit.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 export const ROUTES: Route[] = [
   {path: '', component: MainPageComponent},
@@ -20,11 +21,11 @@ export const ROUTES: Route[] = [
   {path: 'search', pathMatch: 'full', redirectTo: 'search/1/1'},
   {path: 'search/:categoryId', pathMatch: 'full', redirectTo: 'search/1/1'},
   {path: 'search/:categoryId/:subcategoryId', component: SearchPageComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'profile/edit', component: ProfileEditComponent},
-  {path: 'posts/:postId', component: PostDetailsComponent},
-  {path: 'posts/:postId/edit', component: PostEditComponent},
-  {path: 'new', component: NewPostComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
+  {path: 'posts/:postId', component: PostDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'posts/:postId/edit', component: PostEditComponent, canActivate: [AuthGuard]},
+  {path: 'new', component: NewPostComponent, canActivate: [AuthGuard]},
   {path: '**', component: ErrorPageComponent}
 ];
 

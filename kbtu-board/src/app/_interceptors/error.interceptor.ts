@@ -9,6 +9,7 @@ import {
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, skip } from 'rxjs/operators';
 import { AuthService } from '../_services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -19,9 +20,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
 
       let error = "";
-      if (err.status !== 401 && err.status !== 403) {
+
+      if (request.url === `${environment.apiUrl}/login/` && err.status === 400) {
+        err.error = "Неверный логин или пароль. Проверьте и попробуйте еще раз."
+      }
+      else if (err.status !== 401 && err.status !== 403) {
         err.error = "Произошла непредвиденная ошибка. Попробуйте снова позже.";
       }
+
 
       return throwError(err);
     }))
