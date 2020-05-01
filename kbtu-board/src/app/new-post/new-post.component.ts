@@ -72,27 +72,24 @@ export class NewPostComponent implements OnInit {
 
   submitForm() {
     const post: Post = {
-      id: this.postsService.generatePostId(),
       title: this.title.value,
       subcategory_id: this.subcategory_id.value,
       user_id: this.authService.currentUserValue.id
     };
-    if (this.place.value.length > 0) {
+    if (this.place.value) {
       post.place = this.place.value;
     }
-    if (this.time.value.length > 0) {
+    if (this.time.value) {
       post.time = this.time.value;
     }
-    if (this.description.value.length > 0) {
+    if (this.description.value) {
       post.description = this.description.value;
     }
     this.postsService.createPost(post);
     this.router.navigate(['/profile']);
   }
 
-  ngOnInit()
-    :
-    void {
+  ngOnInit(): void {
     this.openCategory('lost');
   }
 
@@ -115,7 +112,6 @@ export class NewPostComponent implements OnInit {
     document.getElementById(category).className += ' active';
 
     this.category = category;
-    this.post.get(this.category).enable();
     const form = document.getElementsByTagName('FORM').item(0);
     if (category === 'study') {
       // @ts-ignore

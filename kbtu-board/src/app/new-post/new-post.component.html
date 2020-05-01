@@ -19,7 +19,7 @@
         <div *ngIf="description.errors.maxlength" class="alert">Длиннее 200 символов</div>
       </div>
 
-      <div class="content" formGroupName="lost" id="lost">
+      <div class="content" id="lost">
         <input formControlName="place" placeholder="Место находки" type="text">
         <div class="one-line-input">
           <div>
@@ -36,7 +36,7 @@
           <option value="1">Потерял</option>
           <option value="2">Нашел</option>
         </select>
-        <div class="alerts">
+        <div *ngIf="!post.valid && post.touched && !subcategory_id.valid" class="alerts">
           <div *ngIf="subcategory_id.errors.required" class="alert">
             Вы потеряли или нашли?
           </div>
